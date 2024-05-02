@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.32
+
+- Fix warning - StrEnum is a deprecated alias which will be removed in HA Core 2025.5. Use enum.StrEnum instead
+
 ## 3.0.31
 
 - Disable climate backwards compatibility flag

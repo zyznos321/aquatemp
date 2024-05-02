@@ -1,6 +1,7 @@
+from enum import StrEnum
+
 from custom_components.aqua_temp.common.consts import PRODUCT_IDS
 from custom_components.aqua_temp.common.endpoints import Endpoints
-from homeassistant.backports.enum import StrEnum
 
 
 class APIParam(StrEnum):
