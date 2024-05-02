@@ -1,6 +1,6 @@
 from datetime import timedelta
+from enum import StrEnum
 
-from homeassistant.backports.enum import StrEnum
 from homeassistant.components.climate.const import FAN_AUTO, FAN_LOW, HVACMode
 
 DOMAIN = "aqua_temp"
