@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.33
+
+- Fix "detected blocking call to open inside the event loop by custom integration" error
+
 ## 3.0.32
 
 - Fix warning - StrEnum is a deprecated alias which will be removed in HA Core 2025.5. Use enum.StrEnum instead

@@ -3,6 +3,8 @@ import json
 import logging
 import os
 
+import aiofiles
+
 from homeassistant.config_entries import STORAGE_VERSION, ConfigEntry
 from homeassistant.const import (
     CONF_PASSWORD,
@@ -118,7 +120,7 @@ class AquaTempConfigManager:
 
         self._config_data.update(entry_config)
 
-        self._load_api_config()
+        await self._load_api_config()
 
         self._translations = await translation.async_get_translations(
             self._hass, self._hass.config.language, "entity", {DOMAIN}
@@ -292,11 +294,11 @@ class AquaTempConfigManager:
 
         await self._save()
 
-        self._load_entity_descriptions("default")
+        await self._load_entity_descriptions("default")
         self._load_pc_mapping("default")
 
         for product_id in PRODUCT_IDS:
-            self._load_entity_descriptions(product_id)
+            await self._load_entity_descriptions(product_id)
             self._load_pc_mapping(product_id)
 
         log_messages = [
@@ -370,62 +372,58 @@ class AquaTempConfigManager:
 
             await self._store.async_save(store_data)
 
-    def _load_entity_descriptions(self, product_id: str):
+    async def _load_entity_descriptions(self, product_id: str):
         entities = copy(DEFAULT_ENTITY_DESCRIPTIONS)
         file_path = self._get_product_file(
             ProductParameter.ENTITY_DESCRIPTION, product_id
         )
 
-        if not os.path.exists(file_path):
-            return
+        file = await aiofiles.open(file_path)
+        json_str = await file.read()
+        await file.close()
 
-        with open(file_path) as file:
-            json_str = file.read()
+        json_data = json.loads(json_str)
 
-            json_data = json.loads(json_str)
+        for data_item in json_data:
+            platform = data_item.get("platform")
+            key = data_item.get("key")
+            translation_key = f"{product_id}_{key}".replace("/", "").lower()
 
-            for data_item in json_data:
-                platform = data_item.get("platform")
-                key = data_item.get("key")
-                translation_key = f"{product_id}_{key}".replace("/", "").lower()
+            if platform == Platform.SENSOR:
+                sensor_entity = AquaTempSensorEntityDescription(
+                    key=key,
+                    name=data_item.get("name"),
+                    device_class=data_item.get("device_class"),
+                    native_unit_of_measurement=data_item.get("unit_of_measurement"),
+                    entity_category=EntityCategory.DIAGNOSTIC,
+                    translation_key=translation_key,
+                )
 
-                if platform == Platform.SENSOR:
-                    sensor_entity = AquaTempSensorEntityDescription(
-                        key=key,
-                        name=data_item.get("name"),
-                        device_class=data_item.get("device_class"),
-                        native_unit_of_measurement=data_item.get("unit_of_measurement"),
-                        entity_category=EntityCategory.DIAGNOSTIC,
-                        translation_key=translation_key,
-                    )
+                entities.append(sensor_entity)
 
-                    entities.append(sensor_entity)
+            elif platform == Platform.BINARY_SENSOR:
+                binary_sensor_entity = AquaTempBinarySensorEntityDescription(
+                    key=key,
+                    name=data_item.get("name"),
+                    device_class=data_item.get("device_class"),
+                    on_value=data_item.get("on_value"),
+                    entity_category=EntityCategory.DIAGNOSTIC,
+                    translation_key=translation_key,
+                )
 
-                elif platform == Platform.BINARY_SENSOR:
-                    binary_sensor_entity = AquaTempBinarySensorEntityDescription(
-                        key=key,
-                        name=data_item.get("name"),
-                        device_class=data_item.get("device_class"),
-                        on_value=data_item.get("on_value"),
-                        entity_category=EntityCategory.DIAGNOSTIC,
-                        translation_key=translation_key,
-                    )
+                entities.append(binary_sensor_entity)
 
-                    entities.append(binary_sensor_entity)
+            else:
+                entity = AquaTempEntityDescription(key=key, name=data_item.get("name"))
 
-                else:
-                    entity = AquaTempEntityDescription(
-                        key=key, name=data_item.get("name")
-                    )
-
-                    entities.append(entity)
+                entities.append(entity)
 
         self._update_platforms(entities)
         self._update_protocol_codes(product_id, entities)
 
         self._entity_descriptions[product_id] = entities
 
-    def _load_pc_mapping(self, product_id: str):
+    async def _load_pc_mapping(self, product_id: str):
         file_path = self._get_product_file(ProductParameter.MAPPING, product_id)
 
         if not os.path.exists(file_path):
@@ -437,50 +435,49 @@ class AquaTempConfigManager:
         fan_mode_mapping = {}
         fan_mode_reverse_mapping = {}
 
-        with open(file_path) as file:
-            json_str = file.read()
+        file = await aiofiles.open(file_path)
+        json_str = await file.read()
+        await file.close()
 
-            json_data = json.loads(json_str)
+        json_data = json.loads(json_str)
 
-            self._protocol_codes_configuration[product_id] = json_data
+        self._protocol_codes_configuration[product_id] = json_data
 
-            hvac_modes = json_data.get(CONFIG_HVAC_MODES)
+        hvac_modes = json_data.get(CONFIG_HVAC_MODES)
 
-            for hvac_mode_ha_key in hvac_modes:
-                hvac_mode = hvac_modes[hvac_mode_ha_key]
-                hvac_mode_api = hvac_mode.get(CONFIG_HVAC_SET)
+        for hvac_mode_ha_key in hvac_modes:
+            hvac_mode = hvac_modes[hvac_mode_ha_key]
+            hvac_mode_api = hvac_mode.get(CONFIG_HVAC_SET)
 
-                hvac_mode_mapping[hvac_mode_ha_key] = hvac_mode_api
-                hvac_mode_reverse_mapping[hvac_mode_api] = hvac_mode_ha_key
+            hvac_mode_mapping[hvac_mode_ha_key] = hvac_mode_api
+            hvac_mode_reverse_mapping[hvac_mode_api] = hvac_mode_ha_key
 
-            fan_modes = json_data.get(CONFIG_FAN_MODES)
+        fan_modes = json_data.get(CONFIG_FAN_MODES)
 
-            for fan_mode_ha in fan_modes:
-                fan_mode = fan_modes[fan_mode_ha]
+        for fan_mode_ha in fan_modes:
+            fan_mode = fan_modes[fan_mode_ha]
 
-                fan_mode_mapping[fan_mode_ha] = fan_mode
-                fan_mode_reverse_mapping[fan_mode] = fan_mode_ha
+            fan_mode_mapping[fan_mode_ha] = fan_mode
+            fan_mode_reverse_mapping[fan_mode] = fan_mode_ha
 
-            self._hvac_modes[product_id] = hvac_mode_mapping
-            self._hvac_modes_reverse[product_id] = hvac_mode_reverse_mapping
+        self._hvac_modes[product_id] = hvac_mode_mapping
+        self._hvac_modes_reverse[product_id] = hvac_mode_reverse_mapping
 
-            self._fan_modes[product_id] = fan_mode_mapping
-            self._fan_modes_reverse[product_id] = fan_mode_reverse_mapping
+        self._fan_modes[product_id] = fan_mode_mapping
+        self._fan_modes_reverse[product_id] = fan_mode_reverse_mapping
 
-    def _load_api_config(self):
+    async def _load_api_config(self):
         api_type = self._config_data.api_type
         config_file = f"../parameters/api.{api_type}.json"
         file_path = os.path.join(os.path.dirname(__file__), config_file)
 
-        if not os.path.exists(file_path):
-            return
+        file = await aiofiles.open(file_path)
+        json_str = await file.read()
+        await file.close()
 
-        with open(file_path) as file:
-            json_str = file.read()
+        json_data = json.loads(json_str)
 
-            json_data = json.loads(json_str)
-
-            self._api_config = json_data
+        self._api_config = json_data
 
     def _update_platforms(self, entity_descriptions):
         for entity_description in entity_descriptions:

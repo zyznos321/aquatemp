@@ -1,5 +1,4 @@
 import logging
-from os import path, remove
 import sys
 
 from cryptography.fernet import Fernet, InvalidToken
@@ -14,7 +13,6 @@ from ..common.consts import (
     CONFIGURATION_FILE,
     DOMAIN,
     INVALID_TOKEN_SECTION,
-    LEGACY_KEY_FILE,
     STORAGE_DATA_KEY,
 )
 
@@ -117,25 +115,14 @@ class PasswordManager:
         """Load the retained data from store and return de-serialized data."""
         key = None
 
-        legacy_key_path = self._hass.config.path(LEGACY_KEY_FILE)
+        store = Store(self._hass, STORAGE_VERSION, f".{DOMAIN}", encoder=JSONEncoder)
 
-        if path.exists(legacy_key_path):
-            with open(legacy_key_path, "rb") as file:
-                key = file.read().decode("utf-8")
+        data = await store.async_load()
 
-            remove(legacy_key_path)
+        if data is not None:
+            key = data.get("key")
 
-        else:
-            store = Store(
-                self._hass, STORAGE_VERSION, f".{DOMAIN}", encoder=JSONEncoder
-            )
-
-            data = await store.async_load()
-
-            if data is not None:
-                key = data.get("key")
-
-                await store.async_remove()
+            await store.async_remove()
 
         if key is not None:
             self._encryption_key = key
