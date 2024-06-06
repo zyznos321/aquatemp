@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.34
+
+- Fix relative path of config files
+
 ## 3.0.33
 
 - Fix "detected blocking call to open inside the event loop by custom integration" error

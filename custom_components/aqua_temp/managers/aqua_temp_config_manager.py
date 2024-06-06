@@ -2,6 +2,7 @@ from copy import copy
 import json
 import logging
 import os
+from pathlib import Path
 
 import aiofiles
 
@@ -295,11 +296,11 @@ class AquaTempConfigManager:
         await self._save()
 
         await self._load_entity_descriptions("default")
-        self._load_pc_mapping("default")
+        await self._load_pc_mapping("default")
 
         for product_id in PRODUCT_IDS:
             await self._load_entity_descriptions(product_id)
-            self._load_pc_mapping(product_id)
+            await self._load_pc_mapping(product_id)
 
         log_messages = [
             f"Entity Descriptions: {len(self._entity_descriptions)}",
@@ -377,6 +378,9 @@ class AquaTempConfigManager:
         file_path = self._get_product_file(
             ProductParameter.ENTITY_DESCRIPTION, product_id
         )
+
+        if not os.path.exists(file_path):
+            return
 
         file = await aiofiles.open(file_path)
         json_str = await file.read()
@@ -524,7 +528,9 @@ class AquaTempConfigManager:
 
     @staticmethod
     def _get_product_file(parameter: ProductParameter, product_id):
-        config_file = f"../parameters/{parameter}.{product_id}.json"
-        file_path = os.path.join(os.path.dirname(__file__), config_file)
+        config_file = f"{parameter}.{product_id}.json"
+        current_path = Path(__file__)
+        parent_directory = current_path.parents[1]
+        file_path = os.path.join(parent_directory, "parameters", config_file)
 
         return file_path
