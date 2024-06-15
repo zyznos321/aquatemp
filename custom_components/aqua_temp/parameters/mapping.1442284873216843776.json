@@ -14,19 +14,19 @@
     "cool": {
       "set": "0",
       "target": "R01",
-      "minimum": null,
-      "maximum": null
+      "minimum": "R08",
+      "maximum": "R09"
     },
     "heat": {
       "set": "1",
       "target": "R02",
-      "minimum": "R08",
-      "maximum": "R09"
+      "minimum": "R10",
+      "maximum": "R11"
     },
     "auto": {
       "set": "2",
       "target": "R03",
-      "minimum": "R10",
+      "minimum": "R08",
       "maximum": "R11"
     }
   },
