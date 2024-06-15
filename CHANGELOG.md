@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.36
+
+- Add support for more products [PR #83](https://github.com/radical-squared/aquatemp/pull/83) by [@Know1](https://github.com/Know1)
+
 ## 3.0.35
 
 - Fix minimum / maximum values according to HVAC mode
