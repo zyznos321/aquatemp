@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.35
+
+- Fix minimum / maximum values according to HVAC mode
+
 ## 3.0.34
 
 - Fix relative path of config files
