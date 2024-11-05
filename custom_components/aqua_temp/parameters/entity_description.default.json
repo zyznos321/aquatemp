@@ -68,87 +68,101 @@
   },
   {
     "key": "D01",
-    "name": "Stat Defrosting Temp [D01]",
+    "name": "ambient temp of starting defrosting [D01]",
     "platform": "sensor",
     "device_class": "temperature",
     "unit_of_measurement": "\u00b0C"
-  },
-  {
-    "key": "D01-bar",
-    "name": "Start setp. [D01-bar]",
-    "platform": "sensor",
-    "device_class": "pressure",
-    "unit_of_measurement": "bar"
   },
   {
     "key": "D02",
-    "name": "End Defrosting Temp [D02]",
+    "name": "heating operation time before defrosting [D02]",
     "platform": "sensor",
-    "device_class": "temperature",
-    "unit_of_measurement": "\u00b0C"
+    "device_class": "duration",
+    "unit_of_measurement": "min"
   },
   {
     "key": "D03",
-    "name": "Defrosting Cycle [D03]",
+    "name": "interval time between defrosting cycles [D03]",
     "platform": "sensor",
     "device_class": "duration",
     "unit_of_measurement": "min"
   },
   {
     "key": "D04",
-    "name": "Max. Duration [D04]",
+    "name": "exhaust temp correction for defrosting cycle [D04]",
+    "platform": "sensor",
+    "device_class": "temperature",
+    "unit_of_measurement": "\u00b0C"
+  },
+   {
+    "key": "D05-1",
+    "name": "defrosting suction pressure 1 [D5-1]",
+    "platform": "sensor",
+    "device_class": "pressure",
+    "unit_of_measurement": "bar"
+  },
+    {
+    "key": "D05-2",
+    "name": "defrosting suction pressure 2 [D5-2]",
+    "platform": "sensor",
+    "device_class": "pressure",
+    "unit_of_measurement": "bar"
+  },
+  {
+    "key": "D06",
+    "name": "Defrosting cycle time correction  [D06]",
     "platform": "sensor",
     "device_class": "duration",
     "unit_of_measurement": "min"
   },
   {
-    "key": "D06",
-    "name": "Defrost type [D06]",
-    "platform": "sensor",
-    "device_class": null,
-    "unit_of_measurement": null
-  },
-  {
     "key": "D07",
-    "name": "Out Temp when Defrost [D07]",
+    "name": "ambient temp of starting sliding defrosting [D07]",
     "platform": "sensor",
     "device_class": "temperature",
     "unit_of_measurement": "\u00b0C"
   },
   {
     "key": "D08",
-    "name": "Defrost Coil Temp. Deviation [D08]",
+    "name": "suction temp of start sliding defrosting [D08]",
     "platform": "sensor",
     "device_class": "temperature",
     "unit_of_measurement": "\u00b0C"
   },
   {
-    "key": "D08-bar",
-    "name": "Compensation offset [D08-bar]",
-    "platform": "sensor",
-    "device_class": "pressure",
-    "unit_of_measurement": "bar"
-  },
-  {
     "key": "D09",
-    "name": "Defrost out Temp. Deviation [D09]",
+    "name": "ambient temp of stop sliding defrosting [D09]",
     "platform": "sensor",
     "device_class": "temperature",
     "unit_of_measurement": "\u00b0C"
   },
   {
     "key": "D10",
-    "name": "Defrost ending coil temp. [D10]",
+    "name": "suction temp of stop sliding defrosting [D10]",
     "platform": "sensor",
     "device_class": "temperature",
     "unit_of_measurement": "\u00b0C"
   },
   {
-    "key": "D10-bar",
-    "name": "Defrost ending pressure. [D10-bar]",
+    "key": "D11",
+    "name": "min inlet water temp of defrosting [D11]",
+    "platform": "sensor",
+    "device_class": "temperature",
+    "unit_of_measurement": "\u00b0C"
+  },
+   {
+    "key": "D12",
+    "name": "suction pressure of forced defrosting [D12]",
     "platform": "sensor",
     "device_class": "pressure",
     "unit_of_measurement": "bar"
+  },
+    {
+    "key": "D13",
+    "name": "heating operation time before forced defrosting [D13]",
+    "platform": "sensor",
+    "device_class": "duration",
+    "unit_of_measurement": "min"
   },
   {
     "key": "E01",
