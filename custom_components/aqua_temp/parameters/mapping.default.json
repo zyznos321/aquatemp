@@ -28,6 +28,12 @@
       "target": "R03",
       "minimum": "R08",
       "maximum": "R11"
+    },
+    "cwu": {
+      "set": "3",
+      "target": "R03",
+      "minimum": "R08",
+      "maximum": "R11"
     }
   },
   "fan_modes": {
