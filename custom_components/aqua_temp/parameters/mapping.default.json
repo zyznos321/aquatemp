@@ -23,14 +23,14 @@
       "minimum": "R10",
       "maximum": "R11"
     },
-    "auto": {
-      "set": "2",
-      "target": "R03",
-      "minimum": "R08",
+     "heat": {
+      "set": "3",
+      "target": "R02",
+      "minimum": "R10",
       "maximum": "R11"
     },
-    "cwu": {
-      "set": "3",
+    "auto": {
+      "set": "2",
       "target": "R03",
       "minimum": "R08",
       "maximum": "R11"
