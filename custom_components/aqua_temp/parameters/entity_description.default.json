@@ -1012,7 +1012,6 @@
     "unit_of_measurement": "\u00b0C"
   },
   {
-  {
     "key": "T10",
     "name": "Inlet temp (EVI) [T10]",
     "platform": "sensor",
