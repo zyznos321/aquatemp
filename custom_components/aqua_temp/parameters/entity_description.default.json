@@ -957,198 +957,143 @@
   },
   {
     "key": "T01",
-    "name": "Suction Temp. [T01]",
+    "name": "Inlet water temp. [T01]",
     "platform": "sensor",
     "device_class": "temperature",
     "unit_of_measurement": "\u00b0C"
   },
   {
     "key": "T02",
-    "name": "Inlet water Temp. [T02]",
+    "name": "Outlet water Temp. [T02]",
     "platform": "sensor",
     "device_class": "temperature",
     "unit_of_measurement": "\u00b0C"
   },
   {
     "key": "T03",
-    "name": "Outlet water Temp. [T03]",
+    "name": "Coil Temp. [T03]",
     "platform": "sensor",
     "device_class": "temperature",
     "unit_of_measurement": "\u00b0C"
   },
   {
     "key": "T04",
-    "name": "Coil 1 Temp. [T04]",
+    "name": "Ambient Temp. [T04]",
     "platform": "sensor",
     "device_class": "temperature",
     "unit_of_measurement": "\u00b0C"
   },
   {
     "key": "T05",
-    "name": "Ambient Temp. [T05]",
+    "name": "Suction Temp. [T05]",
     "platform": "sensor",
     "device_class": "temperature",
     "unit_of_measurement": "\u00b0C"
   },
   {
     "key": "T06",
-    "name": "Exhaust Temp. [T06]",
+    "name": "Antifreeze  Temp.1 [T06]",
     "platform": "sensor",
     "device_class": "temperature",
     "unit_of_measurement": "\u00b0C"
   },
   {
     "key": "T07",
-    "name": "Compressor current Detect [T07]",
+    "name": "Buffer tank Temp. [T07]",
     "platform": "sensor",
-    "device_class": "current",
-    "unit_of_measurement": "A"
+    "device_class": "temperature",
+    "unit_of_measurement": "\u00b0C"
   },
   {
     "key": "T08",
-    "name": "AC Fan Output [T08]",
+    "name": "DHW tank Temp. [T08]",
     "platform": "sensor",
-    "device_class": null,
-    "unit_of_measurement": "%"
+    "device_class": "temperature",
+    "unit_of_measurement": "\u00b0C"
   },
   {
-    "key": "T09",
-    "name": "Flow Rate Input [T09]",
-    "platform": "sensor",
-    "device_class": "frequency",
-    "unit_of_measurement": "Hz"
-  },
   {
     "key": "T10",
-    "name": "Pressure Sensor [T10]",
+    "name": "Inlet temp (EVI) [T10]",
     "platform": "sensor",
-    "device_class": "pressure",
-    "unit_of_measurement": "bar"
+    "device_class": "temperature",
+    "unit_of_measurement": "\u00b0C"
   },
   {
     "key": "T11",
-    "name": "Super heat [T11]",
+    "name": "Outlet Temp (EVI) [T11]",
     "platform": "sensor",
     "device_class": "temperature",
     "unit_of_measurement": "\u00b0C"
   },
   {
     "key": "T12",
-    "name": "Target speed of fan motor [T12]",
-    "platform": "sensor",
-    "device_class": null,
-    "unit_of_measurement": "r"
-  },
-  {
-    "key": "T13",
-    "name": "Over heat after commpen. [T13]",
+    "name": "Exhaust temp [T12]",
     "platform": "sensor",
     "device_class": "temperature",
     "unit_of_measurement": "\u00b0C"
-  },
-  {
-    "key": "T14",
-    "name": "Inverter plate AC voltage [T14]",
-    "platform": "sensor",
-    "device_class": "voltage",
-    "unit_of_measurement": "V"
   },
   {
     "key": "T15",
-    "name": "Antifreeze Temp. [T15]",
+    "name": "Pressure [T15]",
     "platform": "sensor",
-    "device_class": "temperature",
-    "unit_of_measurement": "\u00b0C"
+    "device_class": "pressure",
+    "unit_of_measurement": "bar"
   },
   {
-    "key": "T16",
-    "name": "EC Fan motor Speed [T16]",
-    "platform": "sensor",
-    "device_class": null,
-    "unit_of_measurement": "r"
-  },
-  {
-    "key": "T17",
-    "name": "Speed of fan motor1 [T17]",
+    "key": "T27",
+    "name": "speed of fan motor1 [T27]",
     "platform": "sensor",
     "device_class": null,
-    "unit_of_measurement": "r"
+    "unit_of_measurement": "rpm"
   },
   {
-    "key": "T18",
-    "name": "Speed of fan motor2 [T18]",
+    "key": "T28",
+    "name": "speed of fan motor2 [T28]",
     "platform": "sensor",
     "device_class": null,
-    "unit_of_measurement": "r"
+    "unit_of_measurement": "rpm"
+  },
+   {
+    "key": "T29",
+    "name": "target speed of fan motor [T29]",
+    "platform": "sensor",
+    "device_class": null,
+    "unit_of_measurement": "rpm"
   },
   {
-    "key": "T19",
-    "name": "Buses voltage [T19]",
+    "key": "T30",
+    "name": "compressor frequency [T30]",
+    "platform": "sensor",
+    "device_class": "frequency",
+    "unit_of_measurement": "Hz"
+  },
+  {
+    "key": "T31",
+    "name": "operation frequency of compressor [T31]",
+    "platform": "sensor",
+    "device_class": "frequency",
+    "unit_of_measurement": "Hz"
+  },
+  {
+    "key": "T32",
+    "name": "max frequency allowed for driver [T32]",
+    "platform": "sensor",
+    "device_class": "frequency",
+    "unit_of_measurement": "Hz"
+  },
+  {
+    "key": "T34",
+    "name": "AC input voltage [T34]",
     "platform": "sensor",
     "device_class": "voltage",
     "unit_of_measurement": "V"
   },
   {
-    "key": "T20",
-    "name": "Limited Frequency Protect State [T20]",
+    "key": "T35",
+    "name": "AC input current [T35]",
     "platform": "sensor",
-    "device_class": null,
-    "unit_of_measurement": null
-  },
-  {
-    "key": "T21",
-    "name": "Frequency Reduction Protect State [T21]",
-    "platform": "sensor",
-    "device_class": null,
-    "unit_of_measurement": null
-  },
-  {
-    "key": "T22",
-    "name": "Coil 2 Temp. [T22]",
-    "platform": "sensor",
-    "device_class": "temperature",
-    "unit_of_measurement": "\u00b0C"
-  },
-  {
-    "key": "T23",
-    "name": "driver board running state 1 [T23]",
-    "platform": "sensor",
-    "device_class": null,
-    "unit_of_measurement": null
-  },
-  {
-    "key": "T24",
-    "name": "driver board running state 2 [T24]",
-    "platform": "sensor",
-    "device_class": null,
-    "unit_of_measurement": null
-  },
-  {
-    "key": "T25",
-    "name": "driver board running state 3 [T25]",
-    "platform": "sensor",
-    "device_class": null,
-    "unit_of_measurement": null
-  },
-  {
-    "key": "T26",
-    "name": "driver board running state 4 [T26]",
-    "platform": "sensor",
-    "device_class": null,
-    "unit_of_measurement": null
-  },
-  {
-    "key": "T27",
-    "name": "driver board running state 5 [T27]",
-    "platform": "sensor",
-    "device_class": null,
-    "unit_of_measurement": null
-  },
-  {
-    "key": "T28",
-    "name": "Target frequency [T28]",
-    "platform": "sensor",
-    "device_class": null,
-    "unit_of_measurement": null
+    "device_class": "current",
+    "unit_of_measurement": "A"
   }
 ]
